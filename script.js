@@ -39,8 +39,6 @@ function makeGuess(){
         if(guessCount == 1){
             msg.textContent = "Correct! You guessed it! It took 1 try (you're a good guesser " + yourName + " ).";
         }
-        updateScore(guessCount); // make sure this only hppens when we wWIN
-        resetGame();
     }
     else if(guess < answer){
         msg.textContent = "Too LOW. Try again!";
@@ -48,7 +46,8 @@ function makeGuess(){
     else{
         msg.textContent = "Too HIGH. Try again!";
     }
-    
+    updateScore(guessCount); // make sure this only hppens when we wWIN
+    resetGame();
 }
 
 function updateScore(score){
