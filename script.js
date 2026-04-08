@@ -4,7 +4,7 @@ let answer = 0;
 let guessCount = 0;
 let totalWins = 0;
 let range = 0;
-let name = prompt("Enter your name ");
+let yourName = prompt("Enter your name ");
 const scores = [];
 
 document.getElementById("playBtn").addEventListener("click", play);
@@ -37,7 +37,7 @@ function makeGuess(){
     if(guess == answer){
         msg.textContent = "Correct! You guessed it! It took " + guessCount + " tries";
         if(guessCount == 1){
-            msg.textContent = "Correct! You guessed it! It took 1 try (you're a good guesser).";
+            msg.textContent = "Correct! You guessed it! It took 1 try (you're a good guesser " + yourName + " ).";
         }
         updateScore(guessCount); // make sure this only hppens when we wWIN
         resetGame();
