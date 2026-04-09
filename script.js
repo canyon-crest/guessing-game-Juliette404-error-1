@@ -45,61 +45,25 @@ const e = document.getElementById("e");
 const m = document.getElementById("m");
 const h = document.getElementById("h");
 
-document.getElementById("playBtn").addEventListener("click", play);
-function play(){
-    let levels = document.getElementsByName("level") // .getElementsByName = gets all elements from HTML with "[name]"
-    for(let i=0; i < levels.length; i++){
-        if(levels[i].checked){
-            range = parseInt(levels[i].value);
-        }
-        levels[i].disabled = true;
-    }
-    document.getElementById("msg").textContent = "Guess a number 1-" + range;
-    answer = Math.floor(Math.random()*range) + 1;
-    guessCount = 0;
+const times = [];
+let timerId = null;
+let fastestTime = Infinity; // first win = always "fastest"
+let timeSum = 0;
 
-    guessInput.disabled = false;
-    guessBtn.disabled = false;
-    giveUpBtn.disabled = false;
-    playBtn.disabled = true;
+function runTimer() {
+    let startTime = new Date().getTime();
+    document.getElementById("timer").textContent = "0.000";
+    timerId = setInterval(function() {
+        let currentTime = new Date().getTime();
+        let elapsed = (currentTime - startTime) / 1000;
+        document.getElementById("timer").textContent = elapsed.toFixed(3);
+    }, 10);
 }
 
-document.getElementById("guessBtn").addEventListener("click", makeGuess);
-function makeGuess(){
-    let guess = parseInt(document.getElementById("guess").value);
-    if(isNaN(guess) || guess < 1 || guess > range){
-        msg.textContent = "Please enter a VALID number.";
-        return // gets us out of this function makeGuess()
-    }
-
-    guessCount++;
-    if(guess == answer){
-        msg.textContent = "Correct! You guessed it! It took " + guessCount + " tries";
-        if(guessCount == 1){
-            msg.textContent = "Correct! You guessed it! It took 1 try (you're a good guesser, " + formattedName + ").";
-        }
-        updateScore(guessCount); // make sure this only hppens when we wWIN
-        resetGame();
-    }
-    else if(Math.abs(guess - answer) <= 2 && guess > answer){ // if guess is 2 more/less than answer & guess > answer
-        msg.textContent = "HOT! IT'S HOT! You're guess is really close! Just a little too HIGH.";
-    }
-    else if(Math.abs(guess - answer) <= 2 && guess < answer){ // if guess is 2 more/less than answer & guess < answer
-        msg.textContent = "HOT! IT'S HOT! You're guess is really close! Just a little too LOW.";
-    }
-    else if(Math.abs(guess - answer) <= 5 && guess > answer){ // if guess is 10 more/less than answer & guess > answer
-        msg.textContent = "Getting warmer ... You're still a little too HIGH.";
-    }
-    else if(Math.abs(guess - answer) <= 5 && guess < answer){ // if guess is 10 more/less than answer & guess < answer
-        msg.textContent = "Getting warmer ... You're still a little too LOW.";
-    }
-    else if(guess > answer){
-        msg.textContent = "Brr! You're cold! Your guess is too HIGH. Try again!";
-    }
-    else{
-        msg.textContent = "Brr! You're cold! Your guess is too LOW. Try again!";
-    }
-    
+function stopTimer() {
+    clearInterval(timerId);
+    let finalTime = parseFloat(document.getElementById("timer").textContent);
+    return finalTime;
 }
 
 function updateScore(score){
@@ -125,7 +89,6 @@ function updateScore(score){
     }
 }
 
-
 function resetGame(){
     guessInput.value = ""; // clears guess box
     guessInput.disabled = true;
@@ -136,6 +99,81 @@ function resetGame(){
     e.disabled = false;
     m.disabled = false;
     h.disabled = false;
+}
+
+document.getElementById("playBtn").addEventListener("click", play);
+function play(){
+    let levels = document.getElementsByName("level") // .getElementsByName = gets all elements from HTML with "[name]"
+    for(let i=0; i < levels.length; i++){
+        if(levels[i].checked){
+            range = parseInt(levels[i].value);
+        }
+        levels[i].disabled = true;
+    }
+    document.getElementById("msg").textContent = "Guess a number 1-" + range;
+    answer = Math.floor(Math.random()*range) + 1;
+    guessCount = 0;
+
+    guessInput.disabled = false;
+    guessBtn.disabled = false;
+    giveUpBtn.disabled = false;
+    playBtn.disabled = true;
+
+    runTimer();
+    }
+
+document.getElementById("guessBtn").addEventListener("click", makeGuess);
+function makeGuess(){
+    let guess = parseInt(document.getElementById("guess").value);
+    if(isNaN(guess) || guess < 1 || guess > range){
+        msg.textContent = "Please enter a VALID number.";
+        return // gets us out of this function makeGuess()
+    }
+
+    guessCount++;
+    if(guess == answer){
+        msg.textContent = "Correct! You guessed it! It took " + guessCount + " tries";
+        if(guessCount == 1){
+            msg.textContent = "Correct! You guessed it! It took 1 try (you're a good guesser, " + formattedName + ").";
+        }
+        updateScore(guessCount); // make sure this only hppens when we WIN
+        resetGame();
+
+        let finalTime = stopTimer(); // You MUST catch the returned value in a variable
+        times.push(finalTime);
+        if (finalTime < fastestTime) {
+        fastestTime = finalTime;
+        document.getElementById("fastest").textContent = "Fastest Game: " + fastestTime.toFixed(3) + "s";
+        }
+
+        for(let i = 0; i < times.length; i++) {
+            timeSum += times[i];
+        }
+        let avgTimeCalc = (timeSum / times.length).toFixed(3);
+        document.getElementById("avgTime").textContent = "Average Time: " + avgTimeCalc + "s";
+
+        updateScore(guessCount); 
+        resetGame();
+    }
+    else if(Math.abs(guess - answer) <= 2 && guess > answer){ // if guess is 2 more/less than answer & guess > answer
+        msg.textContent = "HOT! IT'S HOT! You're guess is really close! Just a little too HIGH.";
+    }
+    else if(Math.abs(guess - answer) <= 2 && guess < answer){ // if guess is 2 more/less than answer & guess < answer
+        msg.textContent = "HOT! IT'S HOT! You're guess is really close! Just a little too LOW.";
+    }
+    else if(Math.abs(guess - answer) <= 5 && guess > answer){ // if guess is 10 more/less than answer & guess > answer
+        msg.textContent = "Getting warmer ... You're still a little too HIGH.";
+    }
+    else if(Math.abs(guess - answer) <= 5 && guess < answer){ // if guess is 10 more/less than answer & guess < answer
+        msg.textContent = "Getting warmer ... You're still a little too LOW.";
+    }
+    else if(guess > answer){
+        msg.textContent = "Brr! You're cold! Your guess is too HIGH. Try again!";
+    }
+    else{
+        msg.textContent = "Brr! You're cold! Your guess is too LOW. Try again!";
+    }
+    
 }
 
 document.getElementById("giveUpBtn").addEventListener("click", giveUp);
