@@ -15,10 +15,21 @@ body {
 h1{
     background: transparent;
     width: 600px;
+    border-bottom: 2px solid black;
     margin: 0 auto 20px auto;
     padding: 10px 0;
     text-align: center;
     font-size: 3em;
+    font-weight: 300;
+}
+
+h2{
+    background: transparent;
+    width: 250px;
+    margin: 0 auto 15px auto;
+    padding: 5px 0;
+    text-align: center;
+    font-size: 2em;
     font-weight: 300;
 }
 

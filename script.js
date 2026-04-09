@@ -4,7 +4,15 @@ let answer = 0;
 let guessCount = 0;
 let totalWins = 0;
 let range = 0;
+
+const myArr1 = [];
 let yourName = prompt("Enter your name ");
+let formattedName = yourName.charAt(0).toUpperCase() + yourName.slice(1).toLowerCase();
+myArr1.push(formattedName);
+
+let now = new Date();
+date.textContent = now.getMonth()+1 + "/" + now.getDate() + "/" + now.getFullYear();
+
 const scores = [];
 
 const msg = document.getElementById("msg");
@@ -50,16 +58,28 @@ function makeGuess(){
     if(guess == answer){
         msg.textContent = "Correct! You guessed it! It took " + guessCount + " tries";
         if(guessCount == 1){
-            msg.textContent = "Correct! You guessed it! It took 1 try (you're a good guesser, " + yourName + ").";
+            msg.textContent = "Correct! You guessed it! It took 1 try (you're a good guesser, " + formattedName + ").";
         }
         updateScore(guessCount); // make sure this only hppens when we wWIN
         resetGame();
     }
-    else if(guess < answer){
-        msg.textContent = "Too LOW. Try again!";
+    else if(Math.abs(guess - answer) <= 2 && guess > answer){ // if guess is 2 more/less than answer & guess > answer
+        msg.textContent = "HOT! IT'S HOT! You're guess is really close! Just a little too HIGH.";
+    }
+    else if(Math.abs(guess - answer) <= 2 && guess < answer){ // if guess is 2 more/less than answer & guess < answer
+        msg.textContent = "HOT! IT'S HOT! You're guess is really close! Just a little too LOW.";
+    }
+    else if(Math.abs(guess - answer) <= 5 && guess > answer){ // if guess is 10 more/less than answer & guess > answer
+        msg.textContent = "Getting warmer ... You're still a little too HIGH.";
+    }
+    else if(Math.abs(guess - answer) <= 5 && guess < answer){ // if guess is 10 more/less than answer & guess < answer
+        msg.textContent = "Getting warmer ... You're still a little too LOW.";
+    }
+    else if(guess > answer){
+        msg.textContent = "Brr! You're cold! Your guess is too HIGH. Try again!";
     }
     else{
-        msg.textContent = "Too HIGH. Try again!";
+        msg.textContent = "Brr! You're cold! Your guess is too LOW. Try again!";
     }
     
 }
