@@ -30,7 +30,7 @@ else if (day == 3 || day == 23) {
 } 
 else {
     date.textContent = months[month] + " " + day + "th" + ", " + year;
-
+}
 
 const scores = [];
 
