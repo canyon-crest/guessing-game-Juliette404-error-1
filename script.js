@@ -7,6 +7,18 @@ let range = 0;
 let yourName = prompt("Enter your name ");
 const scores = [];
 
+const msg = document.getElementById("msg");
+const wins = document.getElementById("wins");
+const avgScore = document.getElementById("avgScore");
+const guessBtn = document.getElementById("guessBtn");
+const playBtn = document.getElementById("playBtn");
+const giveUpBtn = document.getElementById("giveUpBtn");
+const guessInput = document.getElementById("guess");
+
+const e = document.getElementById("e");
+const m = document.getElementById("m");
+const h = document.getElementById("h");
+
 document.getElementById("playBtn").addEventListener("click", play);
 function play(){
     let levels = document.getElementsByName("level") // .getElementsByName = gets all elements from HTML with "[name]"
@@ -20,6 +32,7 @@ function play(){
     answer = Math.floor(Math.random()*range) + 1;
     guessCount = 0;
 
+    guessInput.disabled = false;
     guessBtn.disabled = false;
     giveUpBtn.disabled = false;
     playBtn.disabled = true;
@@ -37,7 +50,7 @@ function makeGuess(){
     if(guess == answer){
         msg.textContent = "Correct! You guessed it! It took " + guessCount + " tries";
         if(guessCount == 1){
-            msg.textContent = "Correct! You guessed it! It took 1 try (you're a good guesser " + yourName + " ).";
+            msg.textContent = "Correct! You guessed it! It took 1 try (you're a good guesser, " + yourName + ").";
         }
         updateScore(guessCount); // make sure this only hppens when we wWIN
         resetGame();
@@ -53,7 +66,7 @@ function makeGuess(){
 
 function updateScore(score){
     scores.push(score);
-    wins.textcontent = "Total wins: " + scores.length;
+    wins.textContent = "Total wins: " + scores.length;
 
     let sum = 0;
     for(let i = 0; i < scores.length; i++){ // remember, NOT i <= scores.length because scores.length would have empty slot since i starts at 0
@@ -68,21 +81,27 @@ function updateScore(score){
         if(i < scores.length){
             lb[i].textContent = scores[i];
         }
+        else{
+            lb[i].textContent = "--";
+        }
     }
 }
 
+
 function resetGame(){
-    guess.value = ""; // clears the guess box
+    guessInput.value = ""; // clears guess box
+    guessInput.disabled = true;
     guessBtn.disabled = true;
     giveUpBtn.disabled = true;
     playBtn.disabled = false;
+
     e.disabled = false;
     m.disabled = false;
     h.disabled = false;
-
 }
 
 document.getElementById("giveUpBtn").addEventListener("click", giveUp);
 function giveUp(){
-
+    msg.textContent = "The answer is: " + answer + ". It took " + guessCount + " tries before you gave up.";
+    resetGame();
 }
