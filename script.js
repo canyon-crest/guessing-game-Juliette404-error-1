@@ -5,28 +5,32 @@ let guessCount = 0;
 let totalWins = 0;
 let range = 0;
 
+
 const myArr1 = [];
 let yourName = prompt("Enter your name ");
 let formattedName = yourName.charAt(0).toUpperCase() + yourName.slice(1).toLowerCase();
 myArr1.push(formattedName);
 
+
 let now = new Date();
 let day = now.getDate();
-let month = now.getMonth() + 1; // Do the math once here to keep it clean
+let month = now.getMonth();
 let year = now.getFullYear();
 
+const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
 if (day == 1 || day == 21 || day == 31) {
-    date.textContent = day + "st day of " + month + "/" + year;
+    date.textContent = months[month] + " " + day + "st" + ", " + year;
 } 
 else if (day == 2 || day == 22) {
-    date.textContent = day + "nd day of " + month + "/" + year;
+    date.textContent = months[month] + " " + day + "nd" + ", " + year;
 } 
 else if (day == 3 || day == 23) {
-    date.textContent = day + "rd day of " + month + "/" + year;
+    date.textContent = months[month] + " " + day + "rd" + ", " + year;
 } 
 else {
-    date.textContent = day + "th day of " + month + "/" + year;
-}
+    date.textContent = months[month] + " " + day + "th" + ", " + year;
+
 
 const scores = [];
 
@@ -37,7 +41,6 @@ const guessBtn = document.getElementById("guessBtn");
 const playBtn = document.getElementById("playBtn");
 const giveUpBtn = document.getElementById("giveUpBtn");
 const guessInput = document.getElementById("guess");
-
 const e = document.getElementById("e");
 const m = document.getElementById("m");
 const h = document.getElementById("h");
