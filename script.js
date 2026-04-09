@@ -11,7 +11,19 @@ let formattedName = yourName.charAt(0).toUpperCase() + yourName.slice(1).toLower
 myArr1.push(formattedName);
 
 let now = new Date();
-date.textContent = now.getMonth()+1 + "/" + now.getDate() + "/" + now.getFullYear();
+if(now.getDate() == 1 || 21 || 31){
+    date.textContent = now.getDate() + "st day of " + now.getMonth()+1 + ", " + now.getFullYear();
+}
+else if(now.getDate() == 2 || 22){
+    date.textContent = now.getDate() + "nd day of " + now.getMonth()+1 + ", " + now.getFullYear();
+}
+else if(now.getDate() == 3 || 23){
+    date.textContent = now.getDate() + "rd day of " + now.getMonth()+1 + ", " + now.getFullYear();
+}
+else{
+    date.textContent = now.getDate() + "th day of " + now.getMonth()+1 + ", " + now.getFullYear();
+}
+
 
 const scores = [];
 
