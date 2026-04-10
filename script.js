@@ -138,26 +138,25 @@ function makeGuess(){
         msg.textContent = "Correct! You guessed it! It took " + guessCount + " tries, " + formattedName + "!";
         if(guessCount == 1){
             msg.textContent = "Correct! You guessed it! It took 1 try (you're a good guesser, " + formattedName + ").";
-        }
-        updateScore(guessCount); // make sure this only hppens when we WIN
-        resetGame();
+    }
 
-        let finalTime = stopTimer(); // You MUST catch the returned value in a variable
-        times.push(finalTime);
-        if (finalTime < fastestTime) {
+    let finalTime = stopTimer();
+    times.push(finalTime);
+    if (finalTime < fastestTime) {
         fastestTime = finalTime;
         document.getElementById("fastest").textContent = "Fastest Game: " + fastestTime.toFixed(3) + "s";
-        }
-
-        for(let i = 0; i < times.length; i++) {
-            timeSum += times[i];
-        }
-        let avgTimeCalc = (timeSum / times.length).toFixed(3);
-        document.getElementById("avgTime").textContent = "Average Time: " + avgTimeCalc + "s";
-
-        updateScore(guessCount); 
-        resetGame();
     }
+
+    timeSum = 0;
+    for(let i = 0; i < times.length; i++) {
+        timeSum += times[i];
+    }
+    document.getElementById("avgTime").textContent = "Average Time: " + (timeSum / times.length).toFixed(3) + "s";
+
+    updateScore(guessCount);
+    resetGame();
+    }
+    
     else if(Math.abs(guess - answer) <= 2 && guess > answer){ // if guess is 2 more/less than answer & guess > answer
         msg.textContent = "HOT! IT'S HOT! You're guess is really close! Just a little too HIGH.";
     }
