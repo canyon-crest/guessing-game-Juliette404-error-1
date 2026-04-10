@@ -14,6 +14,12 @@
 
       <h3>Welcome!</h3>
       <p><span class="underline-text">Directions</span>: It's quite simple. Just select a level (Easy, Medium, Hard), and type in your guess (whole number only!) until the mystery meme is revealed. The warmer you get, the closer you are to the number. Have fun!</p>
+      <p><span class="underline-text">Keyboard Shortcuts</span>:</p>
+        <ul>
+          <li>space bar = Make a guess</li>
+          <li>g = Give up</li>
+          <li>d = Dark/Light Mode</li>
+        </ul>
 
       <h3>Level</h3>
       <div id="alignRow">
@@ -24,30 +30,39 @@
         <button id="playBtn">Play</button>
       </div>
 
-      <h3 id="msg">Select a Level</h3>
-      <div id="alignRow">
-        <input type="text" id="guess">
-        <button id="guessBtn" disabled>Guess</button>
-        <button id="giveUpBtn" disabled>Give Up</button>
+      <div id="gameArea">
+        <div id="gameControls">
+          <h3 id="msg">Select a Level</h3>
+          <div id="guessRow">
+            <input type="text" id="guess">
+            <button id="guessBtn" disabled>Guess</button>
+            <button id="giveUpBtn" disabled>Give Up</button>
+          </div>
+
+          <h3>Timer</h3>
+          <p id="timer">0.000</p>
+        </div>
         <img id="memeImg" src=".images/21.jpg" alt="Mystery Meme">
       </div>
       
-      <h3>Timer</h3>
-      <p id="timer">0.000</p>
-
-      <h3>Stats</h3>
-      <p id="wins">Total wins: 0</p>
-      <p id="avgScore">Average Score: </p>
-      <p id="fastest">Fastest Game: </p>
-      <p id="avgTime">Average Time: </p>
-
-      <h3>Leaderboard</h3>
-      <p>*Lower average score = better (average score is based on the number of guesses it took you to find the answer)</p>
-      <ol>
-        <li name="leaderboard">--</li>
-        <li name="leaderboard">--</li>
-        <li name="leaderboard">--</li>
-      </ol>
+      <div id="statsRow">
+        <div id="statsCol">
+          <h3>Stats</h3>
+            <p id="wins">Total wins: 0</p>
+            <p id="avgScore">Average Score: </p>
+            <p id="fastest">Fastest Game: </p>
+            <p id="avgTime">Average Time: </p>
+            <div id="leaderboardCol">
+              <h3>Leaderboard</h3>
+              <p>*Lower number of guesses = better score</p>
+                <ol>
+                    <li name="leaderboard">--</li>
+                    <li name="leaderboard">--</li>
+                    <li name="leaderboard">--</li>
+                </ol>
+            </div>
+          </div>
+      </div>
     </div>
   </body>
 </html>

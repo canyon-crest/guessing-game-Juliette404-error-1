@@ -1,6 +1,7 @@
 body {
   background-color: #89b3df;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', 'Geneva', Verdana, sans-serif;
+  overflow-x: hidden;
 }
 
 #container{
@@ -8,7 +9,7 @@ body {
     width: 1020px;  
     margin: 40px auto;
     border: 1px solid #275eb7;
-    padding: 60px;
+    padding: 20px;
     position: relative; /* makes it reference point for dark mode button */
 }
 
@@ -42,6 +43,8 @@ h3{
     font-size: 1.25em;
     margin-bottom: 10px;
     opacity: 0.8;
+    margin-top: 10px;
+    margin-bottom: 5px;
 }
 
 #msg{
@@ -50,11 +53,15 @@ h3{
 }
 
 p{
-    line-height: 2.30em;
-    margin: 10px;
+    line-height: 1.6em;
+    margin: 3px 10px;
     transition: none;
     font-family: 'Nunito', sans-serif;
     font-weight: 400;
+}
+ul {
+    margin-top: 0;
+    margin-bottom: 25px;
 }
 
 .underline-text{
@@ -86,6 +93,10 @@ button:disabled {
 
 #timer {
     font-family: 'Space Mono', monospace;
+}
+
+#guessRow {
+    margin-bottom: 20px;
 }
 
 /* for dark mode set-up */
@@ -162,11 +173,24 @@ body.dark.underline-text {
     color: #c8c8c8;
 }
 
+/* set up general area of gaming on page*/
+#gameArea {
+    display: flex;
+    align-items: flex-start;
+    gap: 30px;
+    margin-bottom: -10px;
+}
+
+#gameControls {
+    flex: 1;
+}
+
+/* meme image format*/
 #memeImg{
     width: 400px; /* width & height lock image to fixed size */
     height: 400px;
     object-fit: contain; /* prevents image from stretching and cropping */
-    float: right;
+    float: none;
     margin-right: 30px;
     margin-left: 15px;
     filter: blur(20px);
@@ -189,6 +213,31 @@ body.dark.underline-text {
     transform: scale(1.02);
 }
 
+/* stats format */
+#statsRow {
+    display: flex;
+    gap: 40px;
+    margin-top: 0;
+    padding-top: 0;
+    clear: both;
+}
+
+#statsCol, #leaderboardCol{
+    flex: 1;
+}
+
+#statsCol p, #leaderboardCol p{
+    font-size: 1.1em;
+}
+
+#statsCol h3, #leaderboardCol h3{
+    font-size: 1.4em;
+}
+
+ol{
+    font-size: 1.1em;
+}
+
 @media (max-width: 1200px){
     #container{
         width: 825px;
@@ -204,8 +253,8 @@ body.dark.underline-text {
     #container{
         width: 95%;
         max-width: 100%;
-        border: none;
         box-sizing: border-box;
+        border: none;
         padding: 15px;
         margin: 0;
     }
@@ -236,6 +285,12 @@ body.dark.underline-text {
         margin-left: 15px;
         margin-right: 15px;
     }
+    #gameArea {
+        flex-wrap: wrap;
+    }
+    #statsRow {
+        flex-wrap: wrap;
+    }
 }
 
 @media (max-width: 768px){
@@ -248,14 +303,17 @@ body.dark.underline-text {
         width: 100%;
         padding: 10px;
     }
-    h1, h2 {
+    h1, h2{
         width: 100%;
         text-align: center;
     }
-    h3 {
+    h3{
         text-align: center;
     }
-    p {
+    p{
+        text-align: center;
+    }
+    ol{
         text-align: center;
     }
     #memeImg{
@@ -264,6 +322,16 @@ body.dark.underline-text {
         width: 80%;
         height: auto;
         margin: 20px auto;
+    }
+    #gameArea{
+        flex-direction: column;
+        align-items: center;
+    }
+    #statsRow{
+        flex-direction: column;
+    }
+    #darkModeBtn{
+        display: none;
     }
     #alignRow{
         text-align: center;

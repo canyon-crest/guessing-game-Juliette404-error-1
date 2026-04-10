@@ -258,7 +258,34 @@ function giveUp(){
 
 
 // dark mode toggle function
-document.getElementById("darkModeBtn").addEventListener("click", function() {
+document.getElementById("darkModeBtn").addEventListener("click", darkMode)
+function darkMode(){
     document.body.classList.toggle("dark"); // goes to CSS and activates functions w/ .dark
-    this.textContent = document.body.classList.contains("dark") ? "Light Mode" : "Dark Mode";
-});
+    document.getElementById("darkModeBtn").textContent = document.body.classList.contains("dark") ? "Light Mode" : "Dark Mode";
+}
+
+
+// keyboard shortcuts
+function guessShortcut(event){
+    if (event.key === " "){
+        event.preventDefault();
+        makeGuess();
+    }
+}
+document.addEventListener("keydown", guessShortcut);
+
+function giveUpShortcut(event){
+    if (event.key === "g"){
+        event.preventDefault();
+        giveUp();
+    }
+}
+document.addEventListener("keydown", giveUpShortcut);
+
+function darkModeShortcut(event){
+    if (event.key === "d" && document.activeElement !== guessInput){
+        event.preventDefault();
+        darkMode();
+    }
+}
+document.addEventListener("keydown", darkModeShortcut);
