@@ -44,6 +44,7 @@ const guessBtn = document.getElementById("guessBtn");
 const playBtn = document.getElementById("playBtn");
 const giveUpBtn = document.getElementById("giveUpBtn");
 const guessInput = document.getElementById("guess");
+const myTimer = document.getElementById("timer");
 const e = document.getElementById("e");
 const m = document.getElementById("m");
 const h = document.getElementById("h");
@@ -55,17 +56,17 @@ let timeSum = 0;
 
 function runTimer() {
     let startTime = new Date().getTime();
-    document.getElementById("timer").textContent = "0.000";
+    myTimer.textContent = "0.000";
     timerId = setInterval(function() {
         let currentTime = new Date().getTime();
         let elapsed = (currentTime - startTime) / 1000;
-        document.getElementById("timer").textContent = elapsed.toFixed(3);
+        myTimer.textContent = elapsed.toFixed(3);
     }, 10);
 }
 
 function stopTimer() {
     clearInterval(timerId);
-    let finalTime = parseFloat(document.getElementById("timer").textContent);
+    let finalTime = parseFloat(myTimer.textContent);
     return finalTime;
 }
 
@@ -104,7 +105,7 @@ function resetGame(){
     h.disabled = false;
 }
 
-document.getElementById("playBtn").addEventListener("click", play);
+playBtn.addEventListener("click", play);
 function play(){
     let levels = document.getElementsByName("level") // .getElementsByName = gets all elements from HTML with "[name]"
     for(let i=0; i < levels.length; i++){
@@ -113,7 +114,7 @@ function play(){
         }
         levels[i].disabled = true;
     }
-    document.getElementById("msg").textContent = "Hello, " + formattedName + "! Guess a number 1-" + range + ".";
+    msg.textContent = "Hello, " + formattedName + "! Guess a number 1-" + range + ".";
     answer = Math.floor(Math.random()*range) + 1;
     guessCount = 0;
 
@@ -125,9 +126,9 @@ function play(){
     runTimer();
     }
 
-document.getElementById("guessBtn").addEventListener("click", makeGuess);
+guessBtn.addEventListener("click", makeGuess);
 function makeGuess(){
-    let guess = parseInt(document.getElementById("guess").value);
+    let guess = parseInt(guessInput.value);
     if(isNaN(guess) || guess < 1 || guess > range){
         msg.textContent = "Please enter a VALID number.";
         return // gets us out of this function makeGuess()
@@ -178,7 +179,7 @@ function makeGuess(){
     
 }
 
-document.getElementById("giveUpBtn").addEventListener("click", giveUp);
+giveUpBtn.addEventListener("click", giveUp);
 function giveUp(){
     msg.textContent = "The answer is: " + answer + ". It took " + guessCount + " tries before you gave up.";
     stopTimer();  // stop, but don't record the time
