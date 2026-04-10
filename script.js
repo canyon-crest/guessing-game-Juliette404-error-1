@@ -5,11 +5,8 @@ let guessCount = 0;
 let totalWins = 0;
 let range = 0;
 
-
-const myArr1 = [];
 let yourName = prompt("Enter your name ");
-let formattedName = yourName.charAt(0).toUpperCase() + yourName.slice(1).toLowerCase();
-myArr1.push(formattedName);
+let formattedName = yourName.charAt(0).toUpperCase() + yourName.slice(1).toLowerCase(); // changes first letter to uppercase; changes rest into lowercase
 
 
 function time() {
@@ -104,6 +101,8 @@ function resetGame(){
     m.disabled = false;
     h.disabled = false;
 }
+
+guessInput.disabled = true;
 
 playBtn.addEventListener("click", play);
 function play(){
