@@ -4,37 +4,50 @@
     <title>JavaScript Number Guessing Game</title>
     <script src="script.js" defer></script>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700&family=Nunito:wght@400;700&family=Space+Mono&display=swap" rel="stylesheet"> <!-- helps me find the right fonts outside of the ones GitHub has (thanks Claude for recommending me the fonts!) -->
   </head>
   <body>
-    <h1>Number Guessing Game</h1>
-    <h2 id="date"></h2>
+    <div id="container">
+      <button id="darkModeBtn">Dark Mode</button>
+      <h1>Number Guessing Game</h1>
+      <h2 id="date"></h2>
 
-    <h3>Level</h3>
-    <input type="radio" name="level" id="e" value="3" checked><label for="e">Easy</label>
-    <input type="radio" name="level" id="m" value="10"><label for="m">Medium</label>
-    <input type="radio" name="level" id="h" value="100"><label for="h">Hard</label>
+      <h3>Welcome!</h3>
+      <p><span class="underline-text">Directions</span>: It's quite simple. Just select a level (Easy, Medium, Hard), and type in your guess (whole number only!) until the mystery meme is revealed. The warmer you get, the closer you are to the number. Have fun!</p>
 
-    <button id="playBtn">Play</button>
+      <h3>Level</h3>
+      <div id="alignRow">
+        <input type="radio" name="level" id="e" value="3" checked><label for="e">Easy</label>
+        <input type="radio" name="level" id="m" value="10"><label for="m">Medium</label>
+        <input type="radio" name="level" id="h" value="100"><label for="h">Hard</label>
 
-    <h3 id="msg">Select a Level</h3>
-    <input type="text" id="guess">
-    <button id="guessBtn" disabled>Guess</button>
-    <button id="giveUpBtn" disabled>Give Up</button>
+        <button id="playBtn">Play</button>
+      </div>
 
-    <h3>Timer</h3>
-    <p id="timer">0.000</p>
+      <h3 id="msg">Select a Level</h3>
+      <div id="alignRow">
+        <input type="text" id="guess">
+        <button id="guessBtn" disabled>Guess</button>
+        <button id="giveUpBtn" disabled>Give Up</button>
+        <img id="memeImg" src=".images/21.jpg" alt="Mystery Meme">
+      </div>
+      
+      <h3>Timer</h3>
+      <p id="timer">0.000</p>
 
-    <h3>Stats</h3>
-    <p id="wins">Total wins: 0</p>
-    <p id="avgScore">Average Score: </p>
-    <p id="fastest">Fastest Game: </p>
-    <p id="avgTime">Average Time: </p>
+      <h3>Stats</h3>
+      <p id="wins">Total wins: 0</p>
+      <p id="avgScore">Average Score: </p>
+      <p id="fastest">Fastest Game: </p>
+      <p id="avgTime">Average Time: </p>
 
-    <h3>Leaderboard</h3>
-    <ol>
-      <li name="leaderboard">--</li>
-      <li name="leaderboard">--</li>
-      <li name="leaderboard">--</li>
-    </ol>
+      <h3>Leaderboard</h3>
+      <p>*Lower average score = better (average score is based on the number of guesses it took you to find the answer)</p>
+      <ol>
+        <li name="leaderboard">--</li>
+        <li name="leaderboard">--</li>
+        <li name="leaderboard">--</li>
+      </ol>
+    </div>
   </body>
 </html>

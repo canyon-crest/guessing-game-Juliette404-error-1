@@ -3,13 +3,13 @@ body {
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', 'Geneva', Verdana, sans-serif;
 }
 
-@keyframes fade-in{
-    from{
-        opacity: 0;
-    }
-    to{
-        opacity: 1;
-    }
+#container{
+    background: #f4f1ea;
+    width: 1020px;  
+    margin: 40px auto;
+    border: 1px solid #275eb7;
+    padding: 60px;
+    position: relative; /* makes it reference point for dark mode button */
 }
 
 h1{
@@ -20,7 +20,8 @@ h1{
     padding: 10px 0;
     text-align: center;
     font-size: 3em;
-    font-weight: 300;
+    font-family: 'Baloo 2', sans-serif; /* font = from Google Fonts link in HTML */
+    font-weight: 700;
 }
 
 h2{
@@ -30,19 +31,241 @@ h2{
     padding: 0;
     text-align: center;
     font-size: 2em;
-    font-weight: 300;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
 }
 
 h3{
-    font-weight: 300;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
     letter-spacing: 1px;
     font-size: 1.25em;
     margin-bottom: 10px;
     opacity: 0.8;
 }
 
+#msg{
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+}
+
 p{
     line-height: 2.30em;
     margin: 10px;
     transition: none;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 400;
+}
+
+.underline-text{
+    text-decoration: underline;
+}
+
+button{
+  background-color: #2c5f8a;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: 'Baloo 2', sans-serif;
+  font-weight: 700;
+  letter-spacing: 1px;
+  font-size: 1em;
+  transition: background-color 0.2s;
+}
+
+button:hover:not(:disabled){ /* when hovering BUT only if the button isn't disabled */
+  background-color: #1a4468;
+}
+
+button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed; /* shows "no" icon instead of hand */
+}
+
+#timer {
+    font-family: 'Space Mono', monospace;
+}
+
+/* for dark mode set-up */
+#darkModeBtn{
+  position: absolute; /* positions button relative to container instead of browser window */
+  top: 15px;
+  right: 15px;
+}
+body.dark{
+    background-color: #1a1a2e;
+    color: #e0e0e0;
+}
+body.dark #container{
+    background: #16213e;
+    border-color: #4a6fa5;
+    box-shadow: 20px 20px 0px -2px #0f1a2e;
+}
+body.dark h1{
+    border-bottom: 2px solid #e0e0e0;
+}
+body.dark h2{
+    color: #c4b99a;
+}
+body.dark h3{
+    color: #e0e0e0;
+}
+body.dark button{
+    background-color: #4a6fa5;
+}
+body.dark button:hover:not(:disabled){
+    background-color: #3a5a8a;
+}
+body.dark button:disabled{
+    opacity: 0.4;
+}
+body.dark #guess{
+    background-color: #2a2a3e;
+    color: #e0e0e0;
+    border-color: #4a6fa5;
+}
+body.dark #darkModeBtn{
+    background-color: #e0e0e0;
+    color: #1a1a2e;
+}
+body.dark p{
+    color: #c8c8c8;
+}
+body.dark label{
+    color: #e0e0e0;
+}
+body.dark #msg {
+    color: #e0e0e0;
+}
+
+/* this format combines HTML parts at once and acts on all of them*/
+body.dark #wins,
+body.dark #avgScore,
+body.dark #fastest,
+body.dark #avgTime,
+body.dark #timer {
+    color: #e0e0e0;
+}
+body.dark ol,
+body.dark li {
+    color: #e0e0e0;
+}
+body.dark input[type="radio"] {
+    accent-color: #4a6fa5;
+}
+body.dark #memeImg {
+    border-color: #4a6fa5;
+}
+body.dark.underline-text {
+    color: #c8c8c8;
+}
+
+#memeImg{
+    width: 400px; /* width & height lock image to fixed size */
+    height: 400px;
+    object-fit: contain; /* prevents image from stretching and cropping */
+    float: right;
+    margin-right: 30px;
+    margin-left: 15px;
+    filter: blur(20px);
+    transition: all 0.5s ease;
+}
+#memeImg.blur20{ 
+    filter: blur(20px);
+}
+#memeImg.blur10{ 
+    filter: blur(10px);
+}
+#memeImg.blur5{ 
+    filter: blur(5px);
+}
+#memeImg.blur0{ 
+    filter: blur(0px); 
+}
+
+#memeImg:hover{
+    transform: scale(1.02);
+}
+
+@media (max-width: 1200px){
+    #container{
+        width: 825px;
+        max-width: 1000px;
+        border: none;
+    }
+    #memeImg{
+        transition: none;
+    }
+}
+
+@media (max-width: 992px){
+    #container{
+        width: 95%;
+        max-width: 100%;
+        border: none;
+        box-sizing: border-box;
+        padding: 15px;
+        margin: 0;
+    }
+    body{
+        padding: 0;
+        margin-top: 10px;
+        margin-left: 0;
+        background: #f4f1ea;
+    }
+    h1{
+        width: 60%;
+        max-width: 100%;
+        text-align: center;
+        font-size: 3em;
+        font-weight: 300;
+    }
+    h2{
+        width: 60%;
+        text-align: center;
+    }
+    #memeImg{
+        width: 35%;
+        height: 300px;
+        transition: none;
+    }
+    p{
+        text-align: justify;
+        margin-left: 15px;
+        margin-right: 15px;
+    }
+}
+
+@media (max-width: 768px){
+    body{
+        background: #f4f1ea;
+        margin: 0;
+        padding: 4px;
+    }
+    #container{
+        width: 100%;
+        padding: 10px;
+    }
+    h1, h2 {
+        width: 100%;
+        text-align: center;
+    }
+    h3 {
+        text-align: center;
+    }
+    p {
+        text-align: center;
+    }
+    #memeImg{
+        float: none;
+        display: block;
+        width: 80%;
+        height: auto;
+        margin: 20px auto;
+    }
+    #alignRow{
+        text-align: center;
+    }
 }
