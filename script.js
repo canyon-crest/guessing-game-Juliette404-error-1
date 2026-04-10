@@ -12,25 +12,28 @@ let formattedName = yourName.charAt(0).toUpperCase() + yourName.slice(1).toLower
 myArr1.push(formattedName);
 
 
-let now = new Date();
-let day = now.getDate();
-let month = now.getMonth();
-let year = now.getFullYear();
+function time() {
+    let now = new Date();
+    let day = now.getDate();
+    let month = now.getMonth();
+    let year = now.getFullYear();
+    let hours = now.getHours();
+    let minutes = now.getMinutes();
+    let seconds = now.getSeconds();
 
-const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
-if (day == 1 || day == 21 || day == 31) {
-    date.textContent = months[month] + " " + day + "st" + ", " + year;
-} 
-else if (day == 2 || day == 22) {
-    date.textContent = months[month] + " " + day + "nd" + ", " + year;
-} 
-else if (day == 3 || day == 23) {
-    date.textContent = months[month] + " " + day + "rd" + ", " + year;
-} 
-else {
-    date.textContent = months[month] + " " + day + "th" + ", " + year;
+    let suffix;
+    if ([11,12,13].includes(day)) suffix = "th";
+    else if (day % 10 === 1) suffix = "st";
+    else if (day % 10 === 2) suffix = "nd";
+    else if (day % 10 === 3) suffix = "rd";
+    else suffix = "th";
+
+    document.getElementById("date").textContent = months[month] + " " + day + suffix + ", " + year + " " + hours + ":" + String(minutes).padStart(2,'0') + ":" + String(seconds).padStart(2,'0');
 }
+time();
+setInterval(time, 1000);
 
 const scores = [];
 
@@ -132,7 +135,7 @@ function makeGuess(){
 
     guessCount++;
     if(guess == answer){
-        msg.textContent = "Correct! You guessed it! It took " + guessCount + " tries";
+        msg.textContent = "Correct! You guessed it! It took " + guessCount + " tries, " + formattedName + "!";
         if(guessCount == 1){
             msg.textContent = "Correct! You guessed it! It took 1 try (you're a good guesser, " + formattedName + ").";
         }
@@ -179,5 +182,7 @@ function makeGuess(){
 document.getElementById("giveUpBtn").addEventListener("click", giveUp);
 function giveUp(){
     msg.textContent = "The answer is: " + answer + ". It took " + guessCount + " tries before you gave up.";
+    stopTimer();  // stop, but don't record the time
+    updateScore(range);
     resetGame();
 }
